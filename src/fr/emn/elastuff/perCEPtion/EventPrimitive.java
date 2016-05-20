@@ -1,5 +1,4 @@
 package fr.emn.elastuff.perCEPtion;
 
-public class EventPrimitive implements Event{
-
+public class EventPrimitive extends Event{
 }

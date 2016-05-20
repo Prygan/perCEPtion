@@ -1,5 +1,5 @@
 package fr.emn.elastuff.perCEPtion;
 
-public interface Event {
-
+public abstract class Event {
+	
 }
