@@ -13,7 +13,6 @@ import fr.emn.elastuff.graph.VM;
  * Symptom Class
  * Allows to identify the symptom by its name and all the Cloud Ressources which are concerned
  * 
- * @author Kévin
  *
  */
 public class Symptom implements Comparable<Symptom> {
