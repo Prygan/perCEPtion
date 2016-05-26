@@ -24,6 +24,13 @@
 	  <artifactId>esper</artifactId>
 	  <version>5.4.0</version>
 	</dependency>
+	<!-- http://mvnrepository.com/artifact/jdom/jdom -->
+	<dependency>
+	    <groupId>jdom</groupId>
+	    <artifactId>jdom</artifactId>
+	    <version>1.1</version>
+	</dependency>
+	
   </dependencies>
   <groupId>fr.emn.elastuff</groupId>
   <artifactId>perCEPtion</artifactId>
