@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listRequest>
+	<request name="VmHighRam"
+		 	 command="select * from VM.win:time_batch(5 min) having avg(ram_consumption) &gt; 95" 
+		 	 event="Complex" />
+	<request name="PMUnused"
+			 command="select * from PM.win:time_batch(5 min) having avg(cpu_consumption) &lt; 10" 
+			 event="Primitive" />
+	<request name="CompoHighRT"
+			 command="select * from PM.win:time_batch(5 min) having avg(cpu_consumption) &lt; 10" 
+			 event="Simple" />
+</listRequest>
