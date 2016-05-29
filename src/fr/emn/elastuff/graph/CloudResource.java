@@ -8,7 +8,7 @@ import fr.emn.elastuff.offering.OffInfra;
 public abstract class CloudResource {
 
 	protected String name;
-
+	
 	public CloudResource(String name) {
 		super();
 		this.name = name;
