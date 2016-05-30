@@ -1,5 +1,10 @@
 package fr.emn.elastuff.perCEPtion;
 
+import java.io.IOException;
+import java.util.Collection;
+
+import org.jdom.JDOMException;
+
 import com.espertech.esper.client.Configuration;
 import com.espertech.esper.client.EPAdministrator;
 import com.espertech.esper.client.EPRuntime;
@@ -18,15 +23,18 @@ public class EsperManager {
 	private Configuration config;
 	private EPServiceProvider epsp;
 	private EPRuntime eprt;
+	private ParserXML parser;
 
 	private EsperManager() {
 		config = new Configuration();
 		configAliases();
 		epsp = EPServiceProviderManager.getProvider("myCEPEngine", config);
+		parser = new ParserXML();
+		addStatements();
 		eprt = epsp.getEPRuntime();
 	}
 
-	public EsperManager getInstance() {
+	public static EsperManager getInstance() {
 		return instance;
 	}
 
@@ -44,9 +52,22 @@ public class EsperManager {
 
 	public void addStatements() {
 		EPAdministrator epAdm = epsp.getEPAdministrator();
-		// TODO use the xml parsing thing to gather all the statments
-		EPStatement epStatement = epAdm
-				.createEPL("select * from VM.win:time_batch(1 sec) having avg(ram_consumption) > 95");
-		epStatement.addListener(new CEPListener());
+
+		try {
+			Collection<Request> requests = parser.read("Input/request.xml");
+			for (Request r : requests) {
+				EPStatement epStatement = epAdm.createEPL(r.getCommand());
+				System.out.println("STMNT ADDED : " + r.getCommand());
+				epStatement.addListener(new CEPListener(r.getName()));
+			}
+
+		} catch (JDOMException | IOException | ParserXMLException e) {
+			// TODO better exception management
+			e.printStackTrace();
+		}
+	}
+
+	public void sendEvent(Object o) {
+		eprt.sendEvent(o);
 	}
 }
