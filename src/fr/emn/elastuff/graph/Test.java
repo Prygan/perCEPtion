@@ -3,6 +3,7 @@ package fr.emn.elastuff.graph;
 import fr.emn.elastuff.offering.OffInfra;
 import fr.emn.elastuff.offering.OffSoft;
 import fr.emn.elastuff.perCEPtion.EsperManager;
+import fr.emn.elastuff.perCEPtion.QueueSymptom;
 
 public class Test {
 
@@ -81,6 +82,8 @@ public class Test {
 			vm1.setRam_consumption(96);
 			em.sendEvent(vm1);
 		}
+
+		System.out.println(QueueSymptom.getInstance().toString());
 	}
 
 }
