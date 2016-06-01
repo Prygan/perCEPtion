@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- ex request : select * from VM.win:time_batch(1 sec) having avg(ram_consumption) > 95 -->
 <listRequest>
 	<request name="VmHighRam"
-		 	 command="select * from VM.win:time_batch(5 min) having avg(ram_consumption) &gt; 95" 
+		 	 command="select * from VM having ram_consumption &gt; 95" 
 		 	 event="Complex" />
 	<request name="PMUnused"
 			 command="select * from PM.win:time_batch(5 min) having avg(cpu_consumption) &lt; 10" 

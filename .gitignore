@@ -51,20 +51,6 @@ target/
 
 # Code Recommenders
 .recommenders/
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
+
+#Maven stuff
+target/
