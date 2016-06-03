@@ -28,6 +28,7 @@ public abstract class CloudResource extends Observable{
 	abstract void removeElt(CloudResource cloudResource) throws UnsupportedOperationException;
 	public abstract void display();
 
+	public abstract int getScore();
 	//
 
 	//public abstract void soi(int nbVM, OfferingVM offering);

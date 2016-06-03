@@ -187,4 +187,10 @@ public class PM extends CloudResource{
 
 	}
 
+	@Override
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return 3;
+	}
+
 }

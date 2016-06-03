@@ -243,4 +243,10 @@ public class Co extends CloudResource {
 		
 	}
 
+	@Override
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+
 }

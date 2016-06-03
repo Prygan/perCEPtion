@@ -386,4 +386,10 @@ public class VM extends CloudResource {
 	public String toString() {
 		return "VM "+this.name+": co " + cos.size() + " pm : " + pm + " tier : " + tier;
 	}
+
+	@Override
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return 2;
+	}
 }
