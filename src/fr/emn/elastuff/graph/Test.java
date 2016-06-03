@@ -2,7 +2,6 @@ package fr.emn.elastuff.graph;
 
 import fr.emn.elastuff.offering.OffInfra;
 import fr.emn.elastuff.offering.OffSoft;
-import fr.emn.elastuff.perCEPtion.EsperManager;
 import fr.emn.elastuff.perCEPtion.QueueSymptom;
 
 public class Test {
@@ -76,11 +75,12 @@ public class Test {
 		appli.display();
 
 		System.out.println("\n***************** Event creation *******************\n");
-		EsperManager em = EsperManager.getInstance();
+		//new version, use the launcher with Perception.java
+		//	EsperManager em = new EsperManager();
 
 		for (int i = 0; i < 10; i++) {
 			vm1.setRam_consumption(96);
-			em.sendEvent(vm1);
+		//	em.sendEvent(vm1);
 		}
 
 		System.out.println(QueueSymptom.getInstance().toString());

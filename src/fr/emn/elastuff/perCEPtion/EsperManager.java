@@ -1,5 +1,6 @@
 package fr.emn.elastuff.perCEPtion;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
@@ -13,29 +14,30 @@ import com.espertech.esper.client.EPServiceProviderManager;
 import com.espertech.esper.client.EPStatement;
 
 import fr.emn.elastuff.graph.Appli;
+import fr.emn.elastuff.graph.CloudResource;
 import fr.emn.elastuff.graph.Co;
 import fr.emn.elastuff.graph.PM;
 import fr.emn.elastuff.graph.Tier;
 import fr.emn.elastuff.graph.VM;
 
 public class EsperManager {
-	private static EsperManager instance = new EsperManager();
+	
 	private Configuration config;
 	private EPServiceProvider epsp;
 	private EPRuntime eprt;
-	private ParserXML parser;
+	
+	private Collection<Request> requests ;
 
-	private EsperManager() {
+	public EsperManager(Collection<CloudResource> cloudsRessources) {
 		config = new Configuration();
 		configAliases();
 		epsp = EPServiceProviderManager.getProvider("myCEPEngine", config);
-		parser = new ParserXML();
-		addStatements();
 		eprt = epsp.getEPRuntime();
-	}
 
-	public static EsperManager getInstance() {
-		return instance;
+		for(CloudResource cR : cloudsRessources){
+			CloudRessourceListener listener = new CloudRessourceListener(eprt);
+			cR.addObserver(listener);
+		}
 	}
 
 	public EPRuntime getRuntime() {
@@ -50,24 +52,23 @@ public class EsperManager {
 		config.addEventType("Tier", Tier.class.getName());
 	}
 
+	public void readXml(File file) throws JDOMException, IOException, ParserXMLException{
+		ParserXML parser = new ParserXML();
+		requests = parser.read(file);
+	}
+	
+	
 	public void addStatements() {
 		EPAdministrator epAdm = epsp.getEPAdministrator();
 
-		try {
-			Collection<Request> requests = parser.read("Input/request.xml");
-			for (Request r : requests) {
-				EPStatement epStatement = epAdm.createEPL(r.getCommand());
-				System.out.println("STMNT ADDED : " + r.getCommand());
-				epStatement.addListener(new CEPListener(r.getName()));
-			}
-
-		} catch (JDOMException | IOException | ParserXMLException e) {
-			// TODO better exception management
-			e.printStackTrace();
+		for (Request r : requests) {
+			EPStatement epStatement = epAdm.createEPL(r.getCommand());
+			System.out.println("STMNT ADDED : " + r.getCommand());
+			epStatement.addListener(new CEPListener(r.getName()));
 		}
 	}
-
-	public void sendEvent(Object o) {
-		eprt.sendEvent(o);
+	
+	public void removeStatements() {
+		epsp.getEPAdministrator().destroyAllStatements();
 	}
 }

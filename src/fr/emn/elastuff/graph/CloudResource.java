@@ -1,11 +1,13 @@
 package fr.emn.elastuff.graph;
 
+import java.util.Observable;
+
 import javax.naming.SizeLimitExceededException;
 
 import fr.emn.elastuff.offering.OffInfra;
 
 
-public abstract class CloudResource {
+public abstract class CloudResource extends Observable{
 
 	protected String name;
 	

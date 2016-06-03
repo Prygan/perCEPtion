@@ -19,7 +19,7 @@ public class CEPListener implements UpdateListener {
 	@Override
 	public void update(EventBean[] newData, EventBean[] oldData) {
 		// TODO make all the magic append
-		System.out.println("Event " + name + " received: " + newData[0].getUnderlying());
+		System.out.println("ESPER CEPListener : Event " + name + " received: " + newData[0].getUnderlying());
 		List<CloudResource> ressources = new ArrayList<CloudResource>();
 		Symptom s = new Symptom(name, ressources);
 		QueueSymptom.getInstance().addSymptom(s);

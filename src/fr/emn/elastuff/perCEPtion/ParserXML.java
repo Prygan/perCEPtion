@@ -14,12 +14,12 @@ import org.jdom.input.SAXBuilder;
 
 public class ParserXML {
 
-	public Collection<Request> read(String filepath) throws JDOMException, IOException, ParserXMLException {
+	public Collection<Request> read(File file) throws JDOMException, IOException, ParserXMLException {
 		Collection<Request> requests = new ArrayList<Request>();
 
 		SAXBuilder sxb = new SAXBuilder();
 		// parsing
-		Document document = sxb.build(new File(filepath));
+		Document document = sxb.build(file);
 
 		Element racine = document.getRootElement();
 		List<?> listRequest = racine.getChildren();
@@ -71,13 +71,4 @@ public class ParserXML {
 			throw new ParserXMLException("the event \"" + eventvalue + "\" doesn't exist");
 		}
 	}
-
-	public static void main(String args[]) throws JDOMException, IOException, ParserXMLException {
-		ParserXML pxml = new ParserXML();
-		Collection<Request> l = pxml.read("Input/request.xml");
-		for (Request r : l) {
-			System.out.println(r);
-		}
-	}
-
 }

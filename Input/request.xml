@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ex request : select * from VM.win:time_batch(1 sec) having avg(ram_consumption) > 95 -->
-<listRequest>
+<listRequest stream="Graph" >
 	<request name="VmHighRam"
 		 	 command="select * from VM having ram_consumption &gt; 95" 
-		 	 event="Complex" />
+		 	 event="Complex" 
+		 	 ttl="4000" />
 	<request name="PMUnused"
 			 command="select * from PM.win:time_batch(5 min) having avg(cpu_consumption) &lt; 10" 
-			 event="Primitive" />
+			 event="Primitive"
+			 ttl="4000" />
 	<request name="CompoHighRT"
 			 command="select * from PM.win:time_batch(5 min) having avg(cpu_consumption) &lt; 10" 
-			 event="Simple" />
+			 event="Simple" 
+			 ttl="4000"/>
 </listRequest>

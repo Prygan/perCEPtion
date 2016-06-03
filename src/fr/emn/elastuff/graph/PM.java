@@ -5,7 +5,7 @@ import java.util.List;
 
 import fr.emn.elastuff.offering.OffInfra;
 
-public class PM extends CloudResource {
+public class PM extends CloudResource{
 
 	private ArrayList<VM> vms;
 	private Appli appli;
@@ -34,6 +34,8 @@ public class PM extends CloudResource {
 
 	public void setCpu_consumption(int cpu_consumption) {
 		this.cpu_consumption = cpu_consumption;
+		this.setChanged();
+		this.notifyObservers(this);
 	}
 
 	public int getRam_consumption() {
@@ -42,6 +44,8 @@ public class PM extends CloudResource {
 
 	public void setRam_consumption(int ram_consumption) {
 		this.ram_consumption = ram_consumption;
+		this.setChanged();
+		this.notifyObservers(this);
 	}
 
 	public int getDisk_consumption() {
@@ -50,6 +54,8 @@ public class PM extends CloudResource {
 
 	public void setDisk_consumption(int disk_consumption) {
 		this.disk_consumption = disk_consumption;
+		this.setChanged();
+		this.notifyObservers(this);
 	}
 
 	public Appli getAppli() {

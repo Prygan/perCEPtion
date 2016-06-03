@@ -59,9 +59,9 @@ public class VM extends CloudResource {
 	}
 
 	public void setVcpu_consumption(int vcpu_consumption) {
-
 		this.vcpu_consumption = vcpu_consumption;
-
+		this.setChanged();
+		this.notifyObservers(this);
 	}
 
 	public int getRam_consumption() {
@@ -69,20 +69,19 @@ public class VM extends CloudResource {
 	}
 
 	public void setRam_consumption(int ram_consumption) {
-
 		this.ram_consumption = ram_consumption;
-
+		this.setChanged();
+		this.notifyObservers(this);
 	}
 
 	public int getDisk_consuption() {
-
 		return disk_consumption;
 	}
 
 	public void setDisk_consumption(int disk_consumption) {
-
 		this.disk_consumption = disk_consumption;
-
+		this.setChanged();
+		this.notifyObservers(this);
 	}
 
 	// get children
@@ -385,6 +384,6 @@ public class VM extends CloudResource {
 	}
 
 	public String toString() {
-		return "VM : co " + cos.size() + " pm : " + pm + " tier : " + tier;
+		return "VM "+this.name+": co " + cos.size() + " pm : " + pm + " tier : " + tier;
 	}
 }
