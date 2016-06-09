@@ -11,8 +11,8 @@
 			 ttl="4000" />
 	<request name="vmHighCpu_CoHighRT"
 			 command="select VHR.name 
-			 	from VMHighRam.win:length(2) as VHR,
-			 		CoHighRT.win:length(3) as CHR
+			 	from VMHighRam.win:time(1 sec) as VHR,
+			 		CoHighRT.win:time(10 sec) as CHR
 			 	where CHR.vm = VHR" 
 			 event="Complex" 
 			 ttl="4000"/>

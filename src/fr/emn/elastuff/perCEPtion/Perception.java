@@ -218,11 +218,27 @@ public class Perception {
 		perCEPtion.parse("/run");
 
 		long t = System.currentTimeMillis();
-		long end = t + 50;
-		while (System.currentTimeMillis() < end) {
-			perCEPtion.parse("/simulate VM1 vcpu 96");
-			perCEPtion.parse("/simulate co1 RT 75");
-			perCEPtion.parse("/simulate co2 RT 75");
+		int sec = 1000;
+		int sec2 = 4000;
+		long end = t + sec;
+		long end2 = t + sec;
+		int vm1 = 96;
+		int RT = 75;
+		int RT2 =74;
+		while (System.currentTimeMillis() > 0) {
+			if (System.currentTimeMillis() > end) {
+				vm1 += 1;
+				perCEPtion.parse("/simulate VM1 vcpu " + vm1);
+				end += sec;
+			}
+			if (System.currentTimeMillis() > end2) {
+				RT += 1;
+				RT2-=1;
+				perCEPtion.parse("/simulate co1 RT " + RT);
+				perCEPtion.parse("/simulate co2 RT " + RT2);
+				end2 += sec2;
+
+			}
 		}
 	}
 

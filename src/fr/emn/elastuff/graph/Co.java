@@ -234,7 +234,7 @@ public class Co extends CloudResource {
 	}
 
 	public String toString() {
-		return "Co TypeCo: " + this.typeCO + " VM " + this.vm.getName();
+		return "Co TypeCo: " + this.typeCO + " VM " + this.vm.getName() + "ValeurRT : "+this.responseTime;
 	}
 
 }
