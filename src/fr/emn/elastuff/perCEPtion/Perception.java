@@ -204,7 +204,7 @@ public class Perception {
 				return;
 			}
 
-			System.out.println("The command " + command + " doesn't exist");
+			logger.error("The command " + command + " doesn't exist");
 		}
 	}
 

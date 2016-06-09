@@ -10,7 +10,7 @@
 			 event="Primitive"
 			 ttl="4000" />
 	<request name="vmHighCpu_CoHighRT"
-			 command="select VHR.name 
+			 command="select VHR, CHR 
 			 	from VMHighRam.win:length(2) as VHR,
 			 		CoHighRT.win:length(3) as CHR
 			 	where CHR.vm = VHR" 
