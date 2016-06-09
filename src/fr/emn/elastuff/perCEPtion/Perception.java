@@ -53,10 +53,12 @@ public class Perception {
 	
 	private void run(){
 		em.addStatements();
+		this.isRunning = true ;
 	}
 	
 	private void stop(){
 		em.removeStatements();
+		this.isRunning = false ;
 	}
 	
 	private void exit(){
