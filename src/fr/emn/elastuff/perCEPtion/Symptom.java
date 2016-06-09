@@ -16,8 +16,8 @@ import fr.emn.elastuff.graph.VM;
  *
  */
 public class Symptom implements Comparable<Symptom> {
-	// Time to leave, 60 sec
-	private final long TTL = 60 * 10 ^ 3;
+	// Time to leave, 6 sec
+	private final long TTL = 6000;
 	private final String name;
 	private final List<CloudResource> cloudRessources;
 	private final long startTime;
@@ -95,7 +95,7 @@ public class Symptom implements Comparable<Symptom> {
 	}
 
 	public String toString() {
-		return "Symptom : " + name;
+		return "Symptom:" + name;
 	}
 
 }

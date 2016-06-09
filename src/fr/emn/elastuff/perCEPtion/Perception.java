@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.jdom.JDOMException;
 
+import net.sf.cglib.core.GeneratorStrategy;
+
 public class Perception {
 
 	private static Logger logger = Logger.getLogger("mainLogger");
@@ -239,7 +241,7 @@ public class Perception {
 				perCEPtion.parse("/simulate co1 RT " + RT);
 				perCEPtion.parse("/simulate co2 RT " + RT2);
 				end2 += sec2;
-
+				System.out.println(QueueSymptom.getInstance().toString());
 			}
 		}
 	}
