@@ -54,3 +54,6 @@ target/
 
 #Maven stuff
 target/
+
+#logs
+log.out

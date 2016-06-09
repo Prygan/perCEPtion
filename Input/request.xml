@@ -2,15 +2,18 @@
 <!-- ex request : select * from VM.win:time_batch(1 sec) having avg(ram_consumption) > 95 -->
 <listRequest stream="Graph" >
 	<request name="VmHighRam"
-		 	 command="select * from VM having ram_consumption &gt; 95" 
-		 	 event="Complex" 
+		 	 command="insert into VMHighRam select * from VM having vcpu_consumption &gt; 95" 
+		 	 event="Primitive"
 		 	 ttl="4000" />
-	<request name="PMUnused"
-			 command="select * from PM.win:time_batch(5 min) having avg(cpu_consumption) &lt; 10" 
+	<request name="CoHighRT"
+			 command="insert into CoHighRT select * from Co.win:length(3) having responseTime &gt; 70" 
 			 event="Primitive"
 			 ttl="4000" />
-	<request name="CompoHighRT"
-			 command="select * from PM.win:time_batch(5 min) having avg(cpu_consumption) &lt; 10" 
-			 event="Simple" 
+	<request name="vmHighCpu_CoHighRT"
+			 command="select VHR.name 
+			 	from VMHighRam.win:length(2) as VHR,
+			 		CoHighRT.win:length(3) as CHR
+			 	where CHR.vm = VHR" 
+			 event="Complex" 
 			 ttl="4000"/>
 </listRequest>
