@@ -1,9 +1,13 @@
 package fr.emn.elastuff.perCEPtion;
 
+import org.apache.log4j.Logger;
+
 import com.espertech.esper.client.EventBean;
 import com.espertech.esper.client.UpdateListener;
 
 public class CEPEventListener implements UpdateListener {
+	private static Logger logger = Logger.getLogger("mainLogger");
+
 	private String name;
 
 	public CEPEventListener(String n) {
@@ -13,8 +17,7 @@ public class CEPEventListener implements UpdateListener {
 
 	@Override
 	public void update(EventBean[] newData, EventBean[] oldData) {
-		// TODO make all the magic append
-		System.out.println("ESPER CEP Event Listener : Event " + name + " received: " + newData[0].getUnderlying());
+		logger.info("ESPER CEP Event Listener : Event " + name + " received: " + newData[0].getUnderlying());
 	}
 
 }

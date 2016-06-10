@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ex request : select * from VM.win:time_batch(1 sec) having avg(ram_consumption) > 95 -->
 <listRequest stream="Graph" >
 	<request name="VmHighRam"
 		 	 command="insert into VMHighRam select * from VM having vcpu_consumption &gt; 95" 
@@ -10,10 +9,10 @@
 			 event="Primitive"
 			 ttl="4000" />
 	<request name="vmHighCpu_CoHighRT"
-			 command="select VHR.name 
+			 command="select VHR 
 			 	from VMHighRam.win:time(1 sec) as VHR,
 			 		CoHighRT.win:time(10 sec) as CHR
 			 	where CHR.vm = VHR" 
-			 event="COMPLEX" 
+			 event="SYMPTOM" 
 			 ttl="4000"/>
 </listRequest>
