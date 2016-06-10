@@ -98,7 +98,7 @@ public class Symptom implements Comparable<Symptom> {
 	}
 
 	public String toString() {
-		return "Symptom:" + name;
+		return "Symptom:" + name + " {" + cloudRessources + "}";
 	}
 
 }

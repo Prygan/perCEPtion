@@ -49,8 +49,10 @@ public class QueueSymptom extends PriorityBlockingQueue<Symptom> {
 	 */
 	public void purgeQueue() {
 		for (Symptom s : this) {
-			if (s.isExpired())
+			if (s.isExpired()) {
 				this.remove(s);
+				logger.info("Remove Symptom : " + s);
+			}
 		}
 	}
 
