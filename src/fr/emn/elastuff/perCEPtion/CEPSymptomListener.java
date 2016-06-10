@@ -15,8 +15,9 @@ import fr.emn.elastuff.graph.CloudResource;
 public class CEPSymptomListener implements UpdateListener {
 	private static Logger logger = Logger.getLogger("mainLogger");
 	private String name;
+	private int symptom_ttl ;
 
-	public CEPSymptomListener(String n) {
+	public CEPSymptomListener(String n, int symptom_ttl){
 		super();
 		name = n;
 	}
@@ -38,7 +39,7 @@ public class CEPSymptomListener implements UpdateListener {
 			ressources.add((CloudResource) newData[0].getUnderlying());
 		}
 
-		Symptom s = new Symptom(name, ressources);
+		Symptom s = new Symptom(name, ressources,symptom_ttl);
 		QueueSymptom.getInstance().addSymptom(s);
 	}
 

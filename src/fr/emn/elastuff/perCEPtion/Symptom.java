@@ -17,10 +17,12 @@ import fr.emn.elastuff.graph.VM;
  */
 public class Symptom implements Comparable<Symptom> {
 	// Time to leave, 6 sec
-	private final long TTL = 6000;
+	private final long TTL ;
+	private final long startTime;
+
 	private final String name;
 	private final List<CloudResource> cloudRessources;
-	private final long startTime;
+	
 	private final int score;
 
 	private static final int scoreAppli = 4;
@@ -29,11 +31,12 @@ public class Symptom implements Comparable<Symptom> {
 	private static final int scoreVm = 2;
 	private static final int scoreCo = 1;
 
-	public Symptom(String name, List<CloudResource> cloudRessources) {
+	public Symptom(String name, List<CloudResource> cloudRessources, long TTL) {
 		this.name = name;
 		this.cloudRessources = cloudRessources;
 		this.startTime = System.currentTimeMillis();
 		this.score = this.calcul(cloudRessources);
+		this.TTL= TTL ;
 	}
 
 	/**

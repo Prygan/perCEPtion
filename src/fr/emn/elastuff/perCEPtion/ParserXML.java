@@ -31,11 +31,27 @@ public class ParserXML {
 
 			// throw new ParserException if it is uncorrect
 			checkRequest(element_request);
-
-			Request request = new Request(element_request.getAttribute("name").getValue(),
-					element_request.getAttribute("command").getValue(),
-					Event.valueOf(element_request.getAttribute("event").getValue().toUpperCase()));
-			requests.add(request);
+			
+			if(element_request.getAttribute("event").getValue().equals(Event.SYMPTOM.toString())){
+				SymptomRequest srequest ;
+				if(element_request.getAttribute("ttl") != null)
+					srequest = new SymptomRequest(element_request.getAttributeValue("name"),
+										   	  	  element_request.getAttributeValue("command"),
+										   	  	  Event.valueOf(element_request.getAttributeValue("event").toUpperCase()),
+										   	  	  Integer.parseInt(element_request.getAttributeValue("ttl")));
+				else
+					srequest = new SymptomRequest(element_request.getAttributeValue("name"),
+										   	  	  element_request.getAttributeValue("command"),
+										   	  	  Event.valueOf(element_request.getAttributeValue("event").toUpperCase()),
+										   	  	  Constant.getInstance().getDefaultTTL());
+				requests.add(srequest);
+			} else{
+				Request request = new Request(element_request.getAttribute("name").getValue(),
+										      element_request.getAttribute("command").getValue(),
+											  Event.valueOf(element_request.getAttribute("event").getValue().toUpperCase()));	
+				requests.add(request);
+			}
+				
 		}
 
 		return requests;
@@ -51,6 +67,8 @@ public class ParserXML {
 
 		if (request.getAttribute("event") == null)
 			throw new ParserXMLException("the attribute event in the xml file doesn't exist");
+		
+		
 
 		// check if attribute value is correct
 		if (request.getAttribute("name").getValue() == null)
@@ -62,13 +80,30 @@ public class ParserXML {
 		String eventvalue = request.getAttribute("event").getValue();
 		if (eventvalue == null)
 			throw new ParserXMLException("the value event in the xml file is uncorrect");
-
+		
 		eventvalue = eventvalue.toUpperCase();
-
 		try {
 			Event.valueOf(eventvalue);
 		} catch (IllegalArgumentException e) {
 			throw new ParserXMLException("the event \"" + eventvalue + "\" doesn't exist");
+		}
+		
+		//can have a ttl attribute
+		Event request_event = Event.valueOf(eventvalue);
+		if(!Event.SYMPTOM.equals(request_event) && request.getAttribute("ttl") != null)
+			throw new ParserXMLException("the ttl attribute in the xml file is reserve for symptoms") ;
+		
+		//if it is a symptom
+		if (request.getAttribute("ttl") != null){
+			String ttl = request.getAttribute("ttl").getValue();
+			if (ttl == null)
+				throw new ParserXMLException("the value ttl in the xml file is uncorrect");
+			
+			try{
+				Integer.parseInt(ttl);
+			}catch(NumberFormatException e){
+				throw new ParserXMLException("the value ttl must be an integer in the xml file");
+			}
 		}
 	}
 }
