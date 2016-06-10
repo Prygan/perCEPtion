@@ -14,5 +14,11 @@
 			 		CoHighRT.win:time(10 sec) as CHR
 			 	where CHR.vm = VHR" 
 			 event="SYMPTOM" 
-			 ttl="4000"/>
+			 ttl="5000"/>
+	<request name="TierOverloaded"
+			 command="select VHR.tier from
+			 		VMHighRam.std:groupwin(tier).win:time(20 sec) as VHR"
+			 event="SYMPTOM"
+			 ttl="5000"
+	/>
 </listRequest>

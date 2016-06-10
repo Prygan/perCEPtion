@@ -47,7 +47,7 @@ public class VM extends CloudResource {
 	}
 
 	public Tier getTier() {
-		return (tier);
+		return tier;
 	}
 
 	public void setTier(Tier t) {
