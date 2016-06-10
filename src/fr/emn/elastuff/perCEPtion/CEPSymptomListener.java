@@ -3,7 +3,6 @@ package fr.emn.elastuff.perCEPtion;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -21,28 +20,24 @@ public class CEPSymptomListener implements UpdateListener {
 	public CEPSymptomListener(String n, int symptom_ttl){
 		super();
 		name = n;
+		this.symptom_ttl = symptom_ttl ;
 	}
 
 	@Override
 	public void update(EventBean[] newData, EventBean[] oldData) {
-		logger.info("ESPER CEPSymptomListener : Event " + name + " received: " + newData[0].getUnderlying());
+		logger.info("ESPER CEPListener : Event " + name + " received: " + newData[0].getUnderlying());
 
 		List<CloudResource> ressources = new ArrayList<CloudResource>();
 
-		if (newData[0].getUnderlying() instanceof Map) {
+		if (!(newData[0].getUnderlying() instanceof CloudResource)) {
 			@SuppressWarnings("unchecked")
-			HashMap<String, Object> map = (HashMap<String, Object>) newData[0].getUnderlying();
+			HashMap<String, BeanEventBean> map = (HashMap<String, BeanEventBean>) newData[0].getUnderlying();
 
 			for (String key : map.keySet()) {
-				if (map.get(key) instanceof BeanEventBean)
-					ressources.add((CloudResource) ((BeanEventBean) map.get(key)).getUnderlying());
-				if (map.get(key) instanceof CloudResource)
-					ressources.add((CloudResource) map.get(key));
+				ressources.add((CloudResource) map.get(key).getUnderlying());
 			}
-		} else if (newData[0].getUnderlying() instanceof CloudResource) {
-			ressources.add((CloudResource) newData[0].getUnderlying());
 		} else {
-			logger.error("CEPSymptomListener " + newData[0].getUnderlying().getClass() + " unsupported");
+			ressources.add((CloudResource) newData[0].getUnderlying());
 		}
 
 		Symptom s = new Symptom(name, ressources,symptom_ttl);

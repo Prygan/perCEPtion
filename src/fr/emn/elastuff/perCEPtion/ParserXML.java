@@ -91,7 +91,7 @@ public class ParserXML {
 		//can have a ttl attribute
 		Event request_event = Event.valueOf(eventvalue);
 		if(!Event.SYMPTOM.equals(request_event) && request.getAttribute("ttl") != null)
-			throw new ParserXMLException("the ttl attribute in the xml file is reserve for symptoms") ;
+			throw new ParserXMLException("the ttl attribute in the xml file is reserve for symptoms for the symptom " + request.getAttributeValue("name")) ;
 		
 		//if it is a symptom
 		if (request.getAttribute("ttl") != null){

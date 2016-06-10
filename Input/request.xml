@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<listRequest stream="Graph" >
+<listRequest>
 	<request name="VmHighRam"
 		 	 command="insert into VMHighRam select * from VM having vcpu_consumption &gt; 95" 
-		 	 event="Primitive"
-		 	 ttl="4000" />
+		 	 event="Primitive"/>
 	<request name="CoHighRT"
 			 command="insert into CoHighRT select * from Co.win:length(3) having responseTime &gt; 70" 
-			 event="Primitive"
-			 ttl="4000" />
+			 event="Primitive"/>
 	<request name="vmHighCpu_CoHighRT"
 			 command="select VHR 
 			 	from VMHighRam.win:time(1 sec) as VHR,

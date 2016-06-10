@@ -13,4 +13,7 @@ public class SymptomRequest extends Request{
 		return this.ttl ;
 	}
 
+	public String toString(){
+		return "SymptomRequest[" + this.name +", " + this.event +", " + this.command + ", " + this.ttl + "]";
+	}
 }

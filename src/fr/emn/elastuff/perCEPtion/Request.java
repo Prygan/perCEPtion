@@ -1,9 +1,9 @@
 package fr.emn.elastuff.perCEPtion;
 
 public class Request {
-	private String command ;
-	private String name ;
-	private Event event ;
+	protected String command ;
+	protected String name ;
+	protected Event event ;
 	
 	public Request(String name, String command, Event event){
 		this.command = command ;
