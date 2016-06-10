@@ -1,10 +1,10 @@
 package fr.emn.elastuff.perCEPtion;
 
-import java.util.PriorityQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 import org.apache.log4j.Logger;
 
-public class QueueSymptom extends PriorityQueue<Symptom> {
+public class QueueSymptom extends PriorityBlockingQueue<Symptom> {
 
 	/**
 	 * 
@@ -28,7 +28,7 @@ public class QueueSymptom extends PriorityQueue<Symptom> {
 	 */
 	public boolean addSymptom(Symptom s) {
 		// Remove all the symptom which are expired
-		logger.debug("Add Symptom : " + s);
+		logger.info("Add Symptom : " + s);
 		this.purgeQueue();
 		return super.add(s);
 	}

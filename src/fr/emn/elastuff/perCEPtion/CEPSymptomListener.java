@@ -12,11 +12,11 @@ import com.espertech.esper.event.bean.BeanEventBean;
 
 import fr.emn.elastuff.graph.CloudResource;
 
-public class CEPListener implements UpdateListener {
+public class CEPSymptomListener implements UpdateListener {
 	private static Logger logger = Logger.getLogger("mainLogger");
 	private String name;
 
-	public CEPListener(String n) {
+	public CEPSymptomListener(String n) {
 		super();
 		name = n;
 	}

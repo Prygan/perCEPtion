@@ -65,7 +65,7 @@ public class EsperManager {
 			EPStatement epStatement = epAdm.createEPL(r.getCommand());
 			System.out.println("STMNT ADDED : " + r.getCommand());
 			if(r.getEvent().equals(Event.SYMPTOM))
-				epStatement.addListener(new CEPListener(r.getName()));
+				epStatement.addListener(new CEPSymptomListener(r.getName()));
 			else {
 				epStatement.addListener(new CEPEventListener(r.getName()));
 			}
