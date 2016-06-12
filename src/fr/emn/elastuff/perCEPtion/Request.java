@@ -1,7 +1,7 @@
 package fr.emn.elastuff.perCEPtion;
 
 /**
- * This class is used represent an Esper Request
+ * This class is used to represent an Esper Request
  * 
  * @author Kevin Keovilay
  * @author Benjamin Robert
