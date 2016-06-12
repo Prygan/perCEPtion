@@ -1,14 +1,16 @@
 package fr.emn.elastuff.graph;
 
+import java.util.Observable;
+
 import javax.naming.SizeLimitExceededException;
 
 import fr.emn.elastuff.offering.OffInfra;
 
 
-public abstract class CloudResource {
+public abstract class CloudResource extends Observable{
 
 	protected String name;
-
+	
 	public CloudResource(String name) {
 		super();
 		this.name = name;
@@ -26,6 +28,7 @@ public abstract class CloudResource {
 	abstract void removeElt(CloudResource cloudResource) throws UnsupportedOperationException;
 	public abstract void display();
 
+	public abstract int getScore();
 	//
 
 	//public abstract void soi(int nbVM, OfferingVM offering);

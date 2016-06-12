@@ -8,11 +8,13 @@ import javax.naming.SizeLimitExceededException;
 import fr.emn.elastuff.offering.OffInfra;
 
 
+
 public class Appli extends CloudResource {
 
 	private ArrayList<Tier> tiers;
 	private ArrayList<PM> pms;
-
+	private static int score = 4;
+	
 	public Appli(String nom) {
 		super(nom);
 		tiers = new ArrayList<Tier>();
@@ -246,6 +248,12 @@ public class Appli extends CloudResource {
 			tiers.get(i).display();
 		}
 		
+	}
+
+	@Override
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return 4;
 	}
 
 	

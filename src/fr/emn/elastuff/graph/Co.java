@@ -11,15 +11,24 @@ public class Co extends CloudResource {
 
 	private VM vm;
 	private String typeCO;
-	
+	private int responseTime;
+
 	OffSoft offeringCO;
-	
-	
 
 	public Co(String nom, String typeCO, OffSoft offeringCO) {
 		super(nom);
 		this.typeCO = typeCO;
 		this.offeringCO = offeringCO;
+	}
+
+	public int getResponseTime() {
+		return responseTime;
+	}
+
+	public void setResponseTime(int responseTime) {
+		this.responseTime = responseTime;
+		this.setChanged();
+		this.notifyObservers(this);
 	}
 
 	public String getTypeCO() {
@@ -60,14 +69,12 @@ public class Co extends CloudResource {
 				vm.getCos().add(this);
 			}
 		}
-	}	
-	
-	/************************ Scale Up Soft ************************
-	 * 			    increase the offering of this CO
-	 * 						 Mode1 --> Mode2
-	 * 						 Mode2 --> Mode3
-	 *						 Mode3 --> throw exception!
-	 * **************************************************************/
+	}
+
+	/************************
+	 * Scale Up Soft ************************ increase the offering of this CO
+	 * Mode1 --> Mode2 Mode2 --> Mode3 Mode3 --> throw exception!
+	 **************************************************************/
 
 	@Override
 	public void sus() throws UnsupportedOperationException {
@@ -75,95 +82,77 @@ public class Co extends CloudResource {
 		try {
 			Thread.sleep(6000);
 		} catch (InterruptedException e) {
-			
+
 			e.printStackTrace();
 		}
-		System.out.println(this.getName()+".sus()");
+		System.out.println(this.getName() + ".sus()");
 		OffSoft offeringCO = this.getOfferingCO();
-	
-		if (offeringCO!=db.values().toArray()[db.size()-1])
-		{
-			if(db.containsValue(offeringCO) )
-			{
+
+		if (offeringCO != db.values().toArray()[db.size() - 1]) {
+			if (db.containsValue(offeringCO)) {
 				List<OffSoft> valueList = new ArrayList<OffSoft>(db.values());
 				int pos = valueList.indexOf(offeringCO);
-				OffSoft nextOffering = (OffSoft) db.values().toArray()[pos+1];
+				OffSoft nextOffering = (OffSoft) db.values().toArray()[pos + 1];
 				this.setOfferingCO(nextOffering);
 			}
-			
-		}
-		else throw new UnsupportedOperationException
-		("Invalide operation : Offering of " + this.getName() + " = "+this.getOfferingCO().getName());
-		
-		
-		/*OfferingCO offeringCO = this.getOfferingCO();
-		switch (offeringCO) {
 
-		case MODE1:
-			this.setOfferingCO(OfferingCO.MODE2);
-			break;
-		case MODE2:
-			this.setOfferingCO(OfferingCO.MODE3);
-			break;
-		case MODE3: throw new UnsupportedOperationException("Invalide operation : "
-				+ "Offering of " + this.getName() + " = MODE3");
-			
-		default:
-			break;
-		}*/
+		} else
+			throw new UnsupportedOperationException(
+					"Invalide operation : Offering of " + this.getName() + " = " + this.getOfferingCO().getName());
+
+		/*
+		 * OfferingCO offeringCO = this.getOfferingCO(); switch (offeringCO) {
+		 * 
+		 * case MODE1: this.setOfferingCO(OfferingCO.MODE2); break; case MODE2:
+		 * this.setOfferingCO(OfferingCO.MODE3); break; case MODE3: throw new
+		 * UnsupportedOperationException("Invalide operation : " +
+		 * "Offering of " + this.getName() + " = MODE3");
+		 * 
+		 * default: break; }
+		 */
 
 	}
 
-	/************************ Scale Down Soft ************************
-	 * 			     increase the offering of this CO
-	 * 						 Mode1 --> throw exception!
-	 * 						 Mode2 --> Mode1
-	 *						 Mode3 --> Mode2
+	/************************
+	 * Scale Down Soft ************************ increase the offering of this CO
+	 * Mode1 --> throw exception! Mode2 --> Mode1 Mode3 --> Mode2
 	 *****************************************************************/
 	@Override
-	public void sds() throws UnsupportedOperationException{
+	public void sds() throws UnsupportedOperationException {
 		OfferingsSoftDB db = OfferingsSoftDB.getInstance();
 		try {
 			Thread.sleep(6000);
 		} catch (InterruptedException e) {
-			
+
 			e.printStackTrace();
 		}
-		System.out.println(this.getName()+".sds()");
+		System.out.println(this.getName() + ".sds()");
 		OffSoft offeringCO = this.getOfferingCO();
-		
-		if (offeringCO!=db.values().toArray()[0])
-		{
-			if(db.containsValue(offeringCO) )
-			{
+
+		if (offeringCO != db.values().toArray()[0]) {
+			if (db.containsValue(offeringCO)) {
 				List<OffSoft> valueList = new ArrayList<OffSoft>(db.values());
 				int pos = valueList.indexOf(offeringCO);
-				OffSoft prevOffering = (OffSoft) db.values().toArray()[pos-1];
+				OffSoft prevOffering = (OffSoft) db.values().toArray()[pos - 1];
 				this.setOfferingCO(prevOffering);
 			}
-			
-		}
-		else throw new UnsupportedOperationException
-		("Invalide operation : Offering of " + this.getName() + " = "+this.getOfferingCO().getName());
-		
-		
-		/*OfferingCO offeringCO = this.getOfferingCO();
-		switch (offeringCO) {
 
-		case MODE1:
+		} else
 			throw new UnsupportedOperationException(
-					"Invalide operation : " + "Offering of " + this.getName() + " = MODE1");
+					"Invalide operation : Offering of " + this.getName() + " = " + this.getOfferingCO().getName());
 
-		case MODE2:
-			this.setOfferingCO(OfferingCO.MODE1);
-			break;
-		case MODE3:
-			this.setOfferingCO(OfferingCO.MODE2);
-			break;
-		default:
-			break;
-
-		}*/
+		/*
+		 * OfferingCO offeringCO = this.getOfferingCO(); switch (offeringCO) {
+		 * 
+		 * case MODE1: throw new UnsupportedOperationException(
+		 * "Invalide operation : " + "Offering of " + this.getName() +
+		 * " = MODE1");
+		 * 
+		 * case MODE2: this.setOfferingCO(OfferingCO.MODE1); break; case MODE3:
+		 * this.setOfferingCO(OfferingCO.MODE2); break; default: break;
+		 * 
+		 * }
+		 */
 	}
 
 	@Override
@@ -176,13 +165,11 @@ public class Co extends CloudResource {
 	public void addElt(CloudResource o) {
 		// TODO Auto-generated method stub
 
-
 	}
 
 	@Override
 	void removeElt(CloudResource o) {
 		// TODO Auto-generated method stub
-
 
 	}
 
@@ -222,7 +209,6 @@ public class Co extends CloudResource {
 
 	}
 
-	
 	@Override
 	public void sii(VM vm) {
 		// TODO Auto-generated method stub
@@ -232,15 +218,23 @@ public class Co extends CloudResource {
 	@Override
 	public void soi(OffInfra offering) {
 		// TODO Auto-generated method stub
-		
-	}
 
-	
+	}
 
 	@Override
 	public void sis(Co co) throws UnsupportedOperationException {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+
+	public String toString() {
+		return "Co TypeCo: " + this.typeCO + " VM " + this.vm.getName() + "ValeurRT : "+this.responseTime;
 	}
 
 }

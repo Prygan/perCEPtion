@@ -10,6 +10,9 @@ local.properties
 .loadpath
 .recommenders
 
+#Maven stuff
+target/
+
 # Eclipse Core
 .project
 
@@ -48,3 +51,9 @@ local.properties
 
 # Code Recommenders
 .recommenders/
+
+#Maven stuff
+target/
+
+#logs
+log.out
