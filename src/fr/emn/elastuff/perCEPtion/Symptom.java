@@ -27,12 +27,6 @@ public class Symptom implements Comparable<Symptom> {
 
 	private final int score;
 
-	private static final int scoreAppli = 4;
-	private static final int scorePm = 3;
-	private static final int scoreTier = 3;
-	private static final int scoreVm = 2;
-	private static final int scoreCo = 1;
-
 	public Symptom(String name, List<CloudResource> cloudRessources, long TTL) {
 		this.name = name;
 		this.cloudRessources = cloudRessources;
@@ -50,16 +44,7 @@ public class Symptom implements Comparable<Symptom> {
 	private int calcul(List<CloudResource> cloudRessources) {
 		int score = 0;
 		for (CloudResource cr : cloudRessources) {
-			if (cr instanceof Appli)
-				score += scoreAppli;
-			if (cr instanceof PM)
-				score += scorePm;
-			if (cr instanceof Tier)
-				score += scoreTier;
-			if (cr instanceof Co)
-				score += scoreCo;
-			if (cr instanceof VM)
-				score += scoreVm;
+			score+=cr.getScore();
 		}
 		return score;
 	}
