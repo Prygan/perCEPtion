@@ -20,13 +20,21 @@ import fr.emn.elastuff.graph.PM;
 import fr.emn.elastuff.graph.Tier;
 import fr.emn.elastuff.graph.VM;
 
+/**
+ * This class is to manage all the Esper configuration.
+ * 
+ * @author Kevin Keovilay
+ * @author Benjamin Robert
+ * @author Dimitri Saingre
+ * 
+ */
 public class EsperManager {
-	
+
 	private Configuration config;
 	private EPServiceProvider epsp;
 	private EPRuntime eprt;
-	
-	private Collection<Request> requests ;
+
+	private Collection<Request> requests;
 
 	public EsperManager(Collection<CloudResource> cloudsRessources) {
 		config = new Configuration();
@@ -34,7 +42,7 @@ public class EsperManager {
 		epsp = EPServiceProviderManager.getProvider("myCEPEngine", config);
 		eprt = epsp.getEPRuntime();
 
-		for(CloudResource cR : cloudsRessources){
+		for (CloudResource cR : cloudsRessources) {
 			CloudRessourceListener listener = new CloudRessourceListener(eprt);
 			cR.addObserver(listener);
 		}
@@ -52,27 +60,26 @@ public class EsperManager {
 		config.addEventType("Tier", Tier.class.getName());
 	}
 
-	public void readXml(File file) throws JDOMException, IOException, ParserXMLException{
+	public void readXml(File file) throws JDOMException, IOException, ParserXMLException {
 		ParserXML parser = new ParserXML();
 		requests = parser.read(file);
 	}
-	
-	
+
 	public void addStatements() {
 		EPAdministrator epAdm = epsp.getEPAdministrator();
 
 		for (Request r : requests) {
 			EPStatement epStatement = epAdm.createEPL(r.getCommand());
 			System.out.println("STMNT ADDED : " + r.getCommand());
-			if(r.getEvent().equals(Event.SYMPTOM)){
-				SymptomRequest sr = (SymptomRequest)r ;
-				epStatement.addListener(new CEPSymptomListener(sr.getName(),sr.getTTL()));
-			}else {
+			if (r.getEvent().equals(Event.SYMPTOM)) {
+				SymptomRequest sr = (SymptomRequest) r;
+				epStatement.addListener(new CEPSymptomListener(sr.getName(), sr.getTTL()));
+			} else {
 				epStatement.addListener(new CEPEventListener(r.getName()));
 			}
 		}
 	}
-	
+
 	public void removeStatements() {
 		epsp.getEPAdministrator().destroyAllStatements();
 	}

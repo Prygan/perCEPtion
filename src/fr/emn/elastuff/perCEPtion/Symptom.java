@@ -13,16 +13,18 @@ import fr.emn.elastuff.graph.VM;
  * Symptom Class Allows to identify the symptom by its name and all the Cloud
  * Ressources which are concerned
  * 
- *
+ * @author Kevin Keovilay
+ * @author Benjamin Robert
+ * @author Dimitri Saingre
  */
 public class Symptom implements Comparable<Symptom> {
 	// Time to leave, 6 sec
-	private final long TTL ;
+	private final long TTL;
 	private final long startTime;
 
 	private final String name;
 	private final List<CloudResource> cloudRessources;
-	
+
 	private final int score;
 
 	private static final int scoreAppli = 4;
@@ -36,13 +38,14 @@ public class Symptom implements Comparable<Symptom> {
 		this.cloudRessources = cloudRessources;
 		this.startTime = System.currentTimeMillis();
 		this.score = this.calcul(cloudRessources);
-		this.TTL= TTL ;
+		this.TTL = TTL;
 	}
 
 	/**
-	 * Calcul the symptom's score to determine its priority in the queue
+	 * Calcul the symptom's score to determine its priority in the queue. It is
+	 * based on the score of its CloudResource objects
 	 * 
-	 * @return
+	 * @return the score of the symptom
 	 */
 	private int calcul(List<CloudResource> cloudRessources) {
 		int score = 0;
@@ -71,7 +74,7 @@ public class Symptom implements Comparable<Symptom> {
 
 	/**
 	 * 
-	 * @return true if the elapsed time is stricly superior to the time to leave
+	 * @return true if the elapsed time is strictly superior to the time to live
 	 *         else return false
 	 */
 	public boolean isExpired() {
@@ -86,7 +89,10 @@ public class Symptom implements Comparable<Symptom> {
 		return TTL;
 	}
 
-	// Method to compare two symptom
+	/**
+	 * Compare two symptoms. The comparison is based on their scores and their
+	 * starting time of their scores are equal
+	 */
 	public int compareTo(Symptom s) {
 		int resCompScore = Integer.compare(this.getScore(), s.getScore());
 		// if the score of the two symptom are equals
