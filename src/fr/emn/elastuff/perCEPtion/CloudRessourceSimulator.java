@@ -87,7 +87,7 @@ public class CloudRessourceSimulator {
 		vm3.addElt(co4);
 
 		vm1.setTier(tier1);
-		vm2.setTier(tier2);
+		vm2.setTier(tier1);
 		vm3.setTier(tier2);
 
 		co1.setVm(vm1);
