@@ -7,7 +7,15 @@ import org.apache.log4j.Logger;
 public class QueueSymptom extends PriorityBlockingQueue<Symptom> {
 
 	/**
+	 * This class is to store all Symptom objects in a PriorityBlockingQueue.
+	 * This class is a singleton
 	 * 
+	 * @author Kevin Keovilay
+	 * @author Benjamin Robert
+	 * @author Dimitri Saingre
+	 * 
+	 * @see PriorityBlockingQueue
+	 * @see Symptom
 	 */
 	private static final long serialVersionUID = -5944950698188907872L;
 	private static Logger logger = Logger.getLogger("mainLogger");
@@ -16,6 +24,11 @@ public class QueueSymptom extends PriorityBlockingQueue<Symptom> {
 	private QueueSymptom() {
 	}
 
+	/**
+	 * Return the instance of QueueSymptom
+	 * 
+	 * @return the only instance of QueueSymptom
+	 */
 	public static QueueSymptom getInstance() {
 		return instance;
 	}
@@ -56,6 +69,11 @@ public class QueueSymptom extends PriorityBlockingQueue<Symptom> {
 		}
 	}
 
+	/**
+	 * Return a String representation of the QueueSymptom
+	 * 
+	 * @return a string representation of the QueueSymptom
+	 */
 	public String toString() {
 		String res = "QueueSymptom { ";
 		for (Symptom s : this) {
