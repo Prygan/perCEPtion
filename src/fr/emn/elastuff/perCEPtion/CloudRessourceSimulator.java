@@ -14,6 +14,11 @@ import fr.emn.elastuff.graph.VM;
 import fr.emn.elastuff.offering.OffInfra;
 import fr.emn.elastuff.offering.OffSoft;
 
+/**
+ * This class is used to simulate different cloudRessource which are linked between them
+ * You can change different cloudResource value with this class 
+ *
+ */
 public class CloudRessourceSimulator {
 
 	private Map<String, CloudResource> cloudsRessources;
@@ -21,7 +26,11 @@ public class CloudRessourceSimulator {
 	public CloudRessourceSimulator() {
 		this.cloudsRessources = new HashMap<>();
 	}
-
+	
+	/**
+	 * create all the components of a cloudRessource, build the graph and set each component in an HashMap
+	 * @see <cloudsRessources>
+	 */
 	public void createCloudResources() {
 		// offering infra
 		OffInfra small = new OffInfra("small", 1, 1024, 10); // 1CPU , 512 MB ,
@@ -114,6 +123,19 @@ public class CloudRessourceSimulator {
 
 	}
 
+	/**
+	 * set the <value> to a component <name> with the method <methodName> 
+	 * the value must be an integer and the component must be in the HashMap <cloudsRessources>
+	 * 
+	 * @param name
+	 * @param methodName
+	 * @param value
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
 	public void setValue(String name, String methodName, Object value) throws NoSuchMethodException, SecurityException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (cloudsRessources.get(name) == null)
@@ -124,6 +146,13 @@ public class CloudRessourceSimulator {
 		method.invoke(cloudsRessources.get(name), value);
 	}
 
+	/**
+	 * Change the <command> into a real method for the CloudResource <cr>
+	 * exemple : parse("VM","vcpu") -> "setVcpu_consumption"
+	 * @param cr the cloudResource
+	 * @param command the command
+	 * @return the real method
+	 */
 	public String parse(CloudResource cr, String command) {
 		if (cr instanceof VM) {
 			if ("vcpu".equals(command))
@@ -151,6 +180,11 @@ public class CloudRessourceSimulator {
 		throw new IllegalArgumentException("the parameter " + command + " doesn't exist for " + cr.getName());
 	}
 
+	/**
+	 * return our hashmap with all the cloudResources instantiated
+	 * the method createCloudResource must be call before this method for a real return value
+	 * @return our cloudRessources
+	 */
 	public Map<String, CloudResource> getCloudRessources() {
 		return this.cloudsRessources;
 	}

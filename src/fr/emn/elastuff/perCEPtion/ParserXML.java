@@ -12,8 +12,20 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 
+/**
+ * the class ParserXML is used to parse our xml file with a specific architecture.
+ *
+ */
 public class ParserXML {
 
+	/**
+	 * read the xml file and transform it into a Collection of Request
+	 * @param file our xml file
+	 * @return our requests
+	 * @throws JDOMException
+	 * @throws IOException
+	 * @throws ParserXMLException
+	 */
 	public Collection<Request> read(File file) throws JDOMException, IOException, ParserXMLException {
 		Collection<Request> requests = new ArrayList<Request>();
 
@@ -57,6 +69,11 @@ public class ParserXML {
 		return requests;
 	}
 
+	/**
+	 * Check if the request in the xml file is correct
+	 * @param request
+	 * @throws ParserXMLException
+	 */
 	private void checkRequest(Element request) throws ParserXMLException {
 		// Checks if attribute exists
 		if (request.getAttribute("name") == null)
