@@ -18,7 +18,6 @@ import fr.emn.elastuff.graph.VM;
  * @author Dimitri Saingre
  */
 public class Symptom implements Comparable<Symptom> {
-	// Time to leave, 6 sec
 	private final long TTL;
 	private final long startTime;
 
